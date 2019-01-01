@@ -13,9 +13,9 @@ GPIO.setmode(GPIO.BCM)
 relay1=20
 relay2=19
 ## Mode
+GPIO.setwarnings(False)
 GPIO.setup(relay1, GPIO.OUT)
 GPIO.setup(relay2, GPIO.OUT)
-
-##To Turn on Relays
-GPIO.output(relay1, GPIO.False)
+##To Turn on/off Relays
+GPIO.output(relay1, GPIO.LOW)
 ## GPIO.output(relay2, GPIO.HIGH)
