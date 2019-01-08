@@ -74,7 +74,7 @@ while True:
   dewpoint=(sensor.temperature -((100-sensor.relative_humidity)/5))
   
   # Whether to turn on Peltier or not
-  if (sensor.temperature - dewpoint) <= 7.0:
+  if (sensor.temperature - dewpoint) <= 9.0:
     GPIO.output(relay1, GPIO.LOW)
     peltier = 1
   else:
@@ -92,6 +92,14 @@ while True:
   chordssub["dewpoint"] = dewpoint
   chordssub["dewpointdelta"] = sensor.temperature - dewpoint
   
+  # Moisture
+
+  analog3 = analog.read(3)
+  if analog3 >= 5.00:
+    moisture = 0
+  else:
+    moisture = (1 - (analog2 / 5)) * 100
+
   # Envirophat data
   chordssub["light"] = light.light()
   chordssub["tempout"] = weather.temperature()
@@ -100,7 +108,7 @@ while True:
   chordssub["tempat5cm"] = point1_C
   chordssub["tempat10cm"] = point2_C
   chordssub["peltier"] = peltier
-  
+  chordssub["Moisture"] = moisture 
   
   
   #Display added values
