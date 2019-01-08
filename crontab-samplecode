@@ -1,0 +1,6 @@
+## Displays RPi info on OLED
+@reboot /home/pi/datatree/stats.py
+* * * * * /home/pi/datatree/stats.py >/dev/null 2>&1
+
+## Starts the data collection and push to the chords site
+@reboot /home/pi/datatree/chordspush-relay.py >> /home/pi/chordspush.log
