@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 ##############################################
 # Name: Sample Chords Submission             #
 # Coded By:  Je’aime Powell                  #
@@ -62,50 +64,59 @@ email = "jpowell@tacc.utexas.edu"
 #url = "http://chords.tacc.cloud/about/data_urls?"
 url = "http://chords.tacc.cloud/measurements/url_create?"
 
-# Calcluate Dew Point
-dewpoint=(sensor.temperature -((100-sensor.relative_humidity)/5))
-
-# Whether to turn on Peltier or not
-if (sensor.temperature - dewpoint) <= 10.0:
-  GPIO.output(relay1, GPIO.LOW)
-  peltier = 1
-else:
-  GPIO.output(relay1, GPIO.HIGH)
-  peltier = 0
-
-#Initiate Dictionary
-chordssub = {"instrument_id" : 5}
-chordssub = {"sensor_id" : 7}
-
-#Add variables from sensors to dictionary
-# si7021 data
-chordssub["temp"] = sensor.temperature
-chordssub["relhumidity"] = sensor.relative_humidity
-chordssub["dewpoint"] = dewpoint
-chordssub["dewpointdelta"] = sensor.temperature - dewpoint
-
-# Envirophat data
-chordssub["light"] = light.light()
-chordssub["tempout"] = weather.temperature()
-chordssub["pressure"] = weather.pressure(unit=unit)
-chordssub["tempat0cm"] = point0_C
-chordssub["tempat5cm"] = point1_C
-chordssub["tempat10cm"] = point2_C
-chordssub["peltier"] = peltier
+#Data collection resolution
+resolution = 10
 
 
-
-#Display added values
-print (chordssub)
-
-#End of URL needs
-chordssub["at"] = '{:%Y-%m-%dT%H:%M:%S}'.format(datetime.datetime.now())
-chordssub["email"] = email
-chordssub["api_key"] = apikey
-
-
-#Generate Full URL and perform request
-chordsurl = requests.get(url = url,data=chordssub)
-
-#Print response
-print(chordsurl.text)
+while True:
+  
+  # Calcluate Dew Point
+  dewpoint=(sensor.temperature -((100-sensor.relative_humidity)/5))
+  
+  # Whether to turn on Peltier or not
+  if (sensor.temperature - dewpoint) <= 7.0:
+    GPIO.output(relay1, GPIO.LOW)
+    peltier = 1
+  else:
+    GPIO.output(relay1, GPIO.HIGH)
+    peltier = 0
+  
+  #Initiate Dictionary
+  chordssub = {"instrument_id" : 5}
+  chordssub = {"sensor_id" : 7}
+  
+  #Add variables from sensors to dictionary
+  # si7021 data
+  chordssub["temp"] = sensor.temperature
+  chordssub["relhumidity"] = sensor.relative_humidity
+  chordssub["dewpoint"] = dewpoint
+  chordssub["dewpointdelta"] = sensor.temperature - dewpoint
+  
+  # Envirophat data
+  chordssub["light"] = light.light()
+  chordssub["tempout"] = weather.temperature()
+  chordssub["pressure"] = weather.pressure(unit=unit)
+  chordssub["tempat0cm"] = point0_C
+  chordssub["tempat5cm"] = point1_C
+  chordssub["tempat10cm"] = point2_C
+  chordssub["peltier"] = peltier
+  
+  
+  
+  #Display added values
+  print (chordssub)
+  
+  #End of URL needs
+  chordssub["at"] = '{:%Y-%m-%dT%H:%M:%S}'.format(datetime.datetime.now())
+  chordssub["email"] = email
+  chordssub["api_key"] = apikey
+  
+  
+  #Generate Full URL and perform request
+  chordsurl = requests.get(url = url,data=chordssub)
+  
+  #Print response
+  print(chordsurl.text)
+  
+  #Pause between pulls
+  time.sleep(resolution)
