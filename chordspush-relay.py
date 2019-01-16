@@ -124,7 +124,8 @@ while True:
     chordsurl = requests.get(url = url,data=chordssub)
   except:
     print (chordssub["at"],"FAILED TO PUSH TO CHORDS")  
-
+    time.sleep(15)
+    continue
 
   #Print response
   print(chordsurl.text)
