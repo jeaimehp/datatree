@@ -98,7 +98,7 @@ while True:
   if analog3 >= 5.00:
     moisture = 0
   else:
-    moisture = (1 - (analog2 / 5)) * 100
+    moisture = (1 - (analog3/ 5)) * 100
 
   # Envirophat data
   chordssub["light"] = light.light()
@@ -119,10 +119,13 @@ while True:
   chordssub["email"] = email
   chordssub["api_key"] = apikey
   
-  
-  #Generate Full URL and perform request
-  chordsurl = requests.get(url = url,data=chordssub)
-  
+  try: 
+    #Generate Full URL and perform request
+    chordsurl = requests.get(url = url,data=chordssub)
+  except:
+    print (chordssub["at"],"FAILED TO PUSH TO CHORDS")  
+
+
   #Print response
   print(chordsurl.text)
   
