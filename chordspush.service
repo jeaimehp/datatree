@@ -1,0 +1,15 @@
+[Unit]
+Description=Simplified simple Chordspush service
+After=syslog.target
+
+[Service]
+Type=simple
+User=pi
+Group=pi
+WorkingDirectory=/home/pi/datatree
+ExecStart=/home/pi/datatree/chordspush-relay-service.py
+StandardOutput=syslog
+StandardError=syslog
+
+[Install]
+WantedBy=multi-user.target

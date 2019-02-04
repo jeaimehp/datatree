@@ -1,5 +1,4 @@
-#!/usr/bin/python3
-
+#!/usr/bin/python3 -u
 ##############################################
 # Name: Sample Chords Submission             #
 # Coded By:  Je’aime Powell                  #
