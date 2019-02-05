@@ -68,12 +68,12 @@ resolution = 10
 
 
 while True:
-  
+  test_temp=sensor.temperature
   # Calcluate Dew Point
-  dewpoint=(sensor.temperature -((100-sensor.relative_humidity)/5))
+  dewpoint=(test_temp -((100-sensor.relative_humidity)/5))
   
   # Whether to turn on Peltier or not
-  if (sensor.temperature - dewpoint) <= 9.0:
+  if (test_temp - dewpoint) <= 10.0 and test_temp - 10 > 1: 
     GPIO.output(relay1, GPIO.LOW)
     peltier = 1
   else:
