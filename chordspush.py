@@ -71,7 +71,7 @@ chordssub["tempat10cm"] = point2_C
 print (chordssub)
 
 #End of URL needs
-chordssub["at"] = '{:%Y-%m-%dT%H:%M:%S}'.format(datetime.datetime.now())
+chordssub["at"] = '{:%Y-%m-%dT%H:%M:%S}'.format(datetime.datetime.utcnow())
 chordssub["email"] = email
 chordssub["api_key"] = apikey
 

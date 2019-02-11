@@ -112,7 +112,7 @@ while True:
   
   
   #End of URL needs
-  chordssub["at"] = '{:%Y-%m-%dT%H:%M:%S}'.format(datetime.datetime.now())
+  chordssub["at"] = '{:%Y-%m-%dT%H:%M:%S}'.format(datetime.datetime.utcnow())
   #Display added values
   print (chordssub)
   chordssub["email"] = email

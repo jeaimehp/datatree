@@ -58,4 +58,4 @@ point0_C=(analog.read(cm0)-.5)*100
 point1_C=(analog.read(cm5)-.5)*100
 point2_C=(analog.read(cm10)-.5)*100
 
-print ('{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.now()),",",sensor.relative_humidity,",",sensor.temperature,",",light.light(),",",weather.temperature(),",",weather.pressure(unit=unit),",",point0_C,",",point1_C,",",point2_C,",",analog.read(3))
+print ('{:%Y-%m-%d %H:%M:%S}'.format(datetime.datetime.utcnow()),",",sensor.relative_humidity,",",sensor.temperature,",",light.light(),",",weather.temperature(),",",weather.pressure(unit=unit),",",point0_C,",",point1_C,",",point2_C,",",analog.read(3))
